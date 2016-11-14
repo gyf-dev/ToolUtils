@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ToolUtils.iml" filepath="$PROJECT_DIR$/ToolUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/toolutils4a/toolutils4a.iml" filepath="$PROJECT_DIR$/toolutils4a/toolutils4a.iml" />
       <module fileurl="file://$PROJECT_DIR$/toolutils4j/toolutils4j.iml" filepath="$PROJECT_DIR$/toolutils4j/toolutils4j.iml" />
     </modules>
   </component>
