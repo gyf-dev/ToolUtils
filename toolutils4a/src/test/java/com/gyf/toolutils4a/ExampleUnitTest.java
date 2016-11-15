@@ -12,6 +12,12 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        int i = 0;
+        while (i < 10000){
+            i++;
+            System.out.println(StringUtil.randomFor6());
+        }
+
+        //assertEquals(4, 2 + 2);
     }
 }
