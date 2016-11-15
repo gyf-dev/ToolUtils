@@ -1,7 +1,5 @@
 package com.gyf.cipher;
 
-import com.gyf.tool.StringUtil;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

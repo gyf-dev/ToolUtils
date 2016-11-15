@@ -491,7 +491,7 @@ public class StringUtil {
      * @return the boolean
      */
     public static boolean isMobile(String mobile) {
-        Pattern pattern = Pattern.compile("((13[0-9])|(14[57])|(15[^4])|(17[013678])|(18[0-9]))\\d{8}$"); // 验证手机号
+        Pattern pattern = Pattern.compile("^((13[0-9])|(14[57])|(15[^4])|(17[013678])|(18[0-9]))\\d{8}$"); // 验证手机号
         Matcher matcher = pattern.matcher(mobile);
         return matcher.matches();
     }
@@ -519,6 +519,12 @@ public class StringUtil {
         return b;
     }
 
+    /**
+     * 判断是否为纯数字
+     *
+     * @param str the str
+     * @return the boolean
+     */
     public static boolean isNumber(String str) {
         Pattern pattern = Pattern.compile("[0-9]*");
         Matcher isNum = pattern.matcher(str);
@@ -600,6 +606,24 @@ public class StringUtil {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 生成6位随机数.
+     *
+     * @return the int
+     */
+    public static String randomFor6(){
+        return String.valueOf((int) ((Math.random()*9+1)*100000));
+    }
+
+    /**
+     * 生成4位随机数.
+     *
+     * @return the int
+     */
+    public static String randomFor4(){
+        return String.valueOf((int) ((Math.random()*9+1)*1000));
     }
 
     private static boolean isChinese(char c) {
