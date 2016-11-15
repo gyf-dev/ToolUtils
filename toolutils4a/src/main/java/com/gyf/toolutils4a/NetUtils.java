@@ -1,19 +1,3 @@
-/*
- *   Copyright (C)  2016 android@19code.com
- *
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 package com.gyf.toolutils4a;
 
 import android.app.Activity;
@@ -34,23 +18,53 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * Blog : http://blog.csdn.net/u011240877
+ * The type Net utils.
  */
 public class NetUtils {
 
+    /**
+     * The constant NETWORK_TYPE_WIFI.
+     */
     public static final String NETWORK_TYPE_WIFI = "wifi";
+    /**
+     * The constant NETWORK_TYPE_3G.
+     */
     public static final String NETWORK_TYPE_3G = "3g";
+    /**
+     * The constant NETWORK_TYPE_2G.
+     */
     public static final String NETWORK_TYPE_2G = "2g";
+    /**
+     * The constant NETWORK_TYPE_WAP.
+     */
     public static final String NETWORK_TYPE_WAP = "wap";
+    /**
+     * The constant NETWORK_TYPE_UNKNOWN.
+     */
     public static final String NETWORK_TYPE_UNKNOWN = "unknown";
+    /**
+     * The constant NETWORK_TYPE_DISCONNECT.
+     */
     public static final String NETWORK_TYPE_DISCONNECT = "disconnect";
 
+    /**
+     * 获取网络类型
+     *
+     * @param context the context
+     * @return the network type
+     */
     public static int getNetworkType(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager == null ? null : connectivityManager.getActiveNetworkInfo();
         return networkInfo == null ? -1 : networkInfo.getType();
     }
 
+    /**
+     * 获取网络名称
+     *
+     * @param context the context
+     * @return the network type name
+     */
     public static String getNetworkTypeName(Context context) {
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo;
@@ -74,6 +88,12 @@ public class NetUtils {
         return type;
     }
 
+    /**
+     * 检查网络状态
+     *
+     * @param context the context
+     * @return the boolean
+     */
     public static boolean isConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cm.getActiveNetworkInfo();
@@ -85,6 +105,12 @@ public class NetUtils {
         return false;
     }
 
+    /**
+     * 网络可用性
+     *
+     * @param context the context
+     * @return the boolean
+     */
     public static boolean isNetworkAvailable(Context context) {
         if (context == null) {
             return false;
@@ -101,6 +127,12 @@ public class NetUtils {
         return false;
     }
 
+    /**
+     * 是否wifi
+     *
+     * @param cxt the cxt
+     * @return the boolean
+     */
     public static boolean isWiFi(Context cxt) {
         ConnectivityManager cm = (ConnectivityManager) cxt.getSystemService(Context.CONNECTIVITY_SERVICE);
         // wifi的状态：ConnectivityManager.TYPE_WIFI
@@ -108,7 +140,12 @@ public class NetUtils {
         return cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
     }
 
-    //unchecked
+    /**
+     * 打开网络设置界面
+     *
+     * @param act the act
+     */
+//unchecked
     public static void openNetSetting(Activity act) {
         Intent intent = new Intent();
         ComponentName cm = new ComponentName("com.android.settings", "com.android.settings.WirelessSettings");
@@ -166,11 +203,23 @@ public class NetUtils {
         }
     }
 
+    /**
+     * 设置wifi状态
+     *
+     * @param context the context
+     * @param enabled the enabled
+     */
     public static void setWifiEnabled(Context context, boolean enabled) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         wifiManager.setWifiEnabled(enabled);
     }
 
+    /**
+     * 设置数据流量状态
+     *
+     * @param context the context
+     * @param enabled the enabled
+     */
     public static void setDataEnabled(Context context, boolean enabled) {
         ConnectivityManager conMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         Class<?> conMgrClass = null;
@@ -192,11 +241,24 @@ public class NetUtils {
         }
     }
 
+    /**
+     * 获取wifi列表
+     *
+     * @param context the context
+     * @return the wifi scan results
+     */
     public static List<ScanResult> getWifiScanResults(Context context) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         return wifiManager.startScan() ? wifiManager.getScanResults() : null;
     }
 
+    /**
+     * 过滤扫描结果
+     *
+     * @param context the context
+     * @param bssid   the bssid
+     * @return the scan results by bssid
+     */
     public static ScanResult getScanResultsByBSSID(Context context, String bssid) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         ScanResult scanResult = null;
@@ -216,6 +278,12 @@ public class NetUtils {
         return scanResult;
     }
 
+    /**
+     * 获取wifi连接信息
+     *
+     * @param context the context
+     * @return the wifi connection info
+     */
     public static WifiInfo getWifiConnectionInfo(Context context) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         return wifiManager.getConnectionInfo();

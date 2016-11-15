@@ -1,19 +1,3 @@
-/*
- *   Copyright (C)  2016 android@19code.com
- *
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 package com.gyf.toolutils4a;
 
 import android.content.Context;
@@ -40,11 +24,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Create by h4de5ing 2016/5/21 021
- * https://github.com/sharinghuang/ASRabbit
+ * The type Image utils.
  */
 public class ImageUtils {
 
+    /**
+     * 计算图片的压缩比率
+     *
+     * @param options   the options
+     * @param reqWidth  the req width
+     * @param reqHeight the req height
+     * @return the int
+     */
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
@@ -59,6 +50,12 @@ public class ImageUtils {
         return inSampleSize;
     }
 
+    /**
+     * 获取图片的角度
+     *
+     * @param imagePath the image path
+     * @return the picture degree
+     */
     public static int getPictureDegree(String imagePath) {
         int i = 0;
         try {
@@ -85,12 +82,27 @@ public class ImageUtils {
         return i;
     }
 
+    /**
+     * 旋转图片
+     *
+     * @param paramInt    the param int
+     * @param paramBitmap the param bitmap
+     * @return the bitmap
+     */
     public static Bitmap rotaingImageView(int paramInt, Bitmap paramBitmap) {
         Matrix localMatrix = new Matrix();
         localMatrix.postRotate(paramInt);
         return Bitmap.createBitmap(paramBitmap, 0, 0, paramBitmap.getWidth(), paramBitmap.getHeight(), localMatrix, true);
     }
 
+    /**
+     * 加载图片并压缩
+     *
+     * @param imagePath the image path
+     * @param outWidth  the out width
+     * @param outHeight the out height
+     * @return the bitmap
+     */
     public static Bitmap decodeScaleImage(String imagePath, int outWidth, int outHeight) {
         BitmapFactory.Options localOptions = new BitmapFactory.Options();
         localOptions.inJustDecodeBounds = true;
@@ -110,6 +122,13 @@ public class ImageUtils {
         return localBitmap1;
     }
 
+    /**
+     * 获取圆角图片
+     *
+     * @param bitmap  the bitmap
+     * @param roundPx the round px
+     * @return the rounded corner bitmap
+     */
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float roundPx) {
         if (bitmap == null) {
             return null;
@@ -129,6 +148,13 @@ public class ImageUtils {
         return output;
     }
 
+    /**
+     * 将bitmap保存为文件
+     *
+     * @param bitmap    the bitmap
+     * @param imageFile the image file
+     * @return the boolean
+     */
     public static boolean bitmap2File(Bitmap bitmap, File imageFile) {
         OutputStream os;
         try {
@@ -143,6 +169,15 @@ public class ImageUtils {
         }
     }
 
+
+    /**
+     * Bitmap 2 gallery boolean.
+     *
+     * @param context  the context
+     * @param bitmap   the bitmap
+     * @param filename the filename
+     * @return the boolean
+     */
     public static boolean bitmap2gallery(Context context, Bitmap bitmap, String filename) {
         boolean saveSuccess;
         String extraPath = FileUtils.getExtraPath("19code");
@@ -165,6 +200,12 @@ public class ImageUtils {
         return saveSuccess;
     }
 
+    /**
+     * 质量压缩
+     *
+     * @param image the image
+     * @return the bitmap
+     */
     public static Bitmap compressImage(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -180,6 +221,14 @@ public class ImageUtils {
         return BitmapFactory.decodeStream(isBm, null, null);
     }
 
+    /**
+     * 固定大小压缩
+     *
+     * @param bitMap    the bit map
+     * @param outWidth  the out width
+     * @param outHeight the out height
+     * @return the bitmap
+     */
     public static Bitmap compressFixBitmap(Bitmap bitMap, int outWidth, int outHeight) {
         int width = bitMap.getWidth();
         int height = bitMap.getHeight();

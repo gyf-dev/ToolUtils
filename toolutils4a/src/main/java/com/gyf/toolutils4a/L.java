@@ -6,6 +6,7 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -17,45 +18,113 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 /**
- * Created by Gh0st on 2016/6/7 007.
- * https://github.com/ZhaoKaiQiang/KLog
+ * The type L.
  */
 public class L {
+    /**
+     * The constant TAG.
+     */
     private static String TAG = "ghost";
+    /**
+     * The constant LOG_DEBUG.
+     */
     private static boolean LOG_DEBUG = true;
+    /**
+     * The constant LINE_SEPARATOR.
+     */
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    /**
+     * The constant VERBOSE.
+     */
     private static final int VERBOSE = 2;
+    /**
+     * The constant DEBUG.
+     */
     private static final int DEBUG = 3;
+    /**
+     * The constant INFO.
+     */
     private static final int INFO = 4;
+    /**
+     * The constant WARN.
+     */
     private static final int WARN = 5;
+    /**
+     * The constant ERROR.
+     */
     private static final int ERROR = 6;
+    /**
+     * The constant ASSERT.
+     */
     private static final int ASSERT = 7;
+    /**
+     * The constant JSON.
+     */
     private static final int JSON = 8;
+    /**
+     * The constant XML.
+     */
     private static final int XML = 9;
 
+    /**
+     * The constant JSON_INDENT.
+     */
     private static final int JSON_INDENT = 4;
 
+    /**
+     * init 初始化日志开关和TAG(默认日志为开,TAG为"ghost")
+     *
+     * @param isDebug the is debug
+     * @param tag     the tag
+     */
     public static void init(boolean isDebug, String tag) {
         TAG = tag;
         LOG_DEBUG = isDebug;
     }
 
+    /**
+     * V.
+     *
+     * @param msg the msg
+     */
     public static void v(String msg) {
         log(VERBOSE, null, msg);
     }
 
+    /**
+     * V.
+     *
+     * @param tag the tag
+     * @param msg the msg
+     */
     public static void v(String tag, String msg) {
         log(VERBOSE, tag, msg);
     }
 
+    /**
+     * D.
+     *
+     * @param msg the msg
+     */
     public static void d(String msg) {
         log(DEBUG, null, msg);
     }
 
+    /**
+     * D.
+     *
+     * @param tag the tag
+     * @param msg the msg
+     */
     public static void d(String tag, String msg) {
         log(DEBUG, tag, msg);
     }
 
+    /**
+     * .
+     *
+     * @param msg the msg
+     */
     public static void i(Object... msg) {
         StringBuilder sb = new StringBuilder();
         for (Object obj : msg) {
@@ -65,42 +134,97 @@ public class L {
         log(INFO, null, String.valueOf(sb));
     }
 
+    /**
+     * W.
+     *
+     * @param msg the msg
+     */
     public static void w(String msg) {
         log(WARN, null, msg);
     }
 
+    /**
+     * W.
+     *
+     * @param tag the tag
+     * @param msg the msg
+     */
     public static void w(String tag, String msg) {
         log(WARN, tag, msg);
     }
 
+    /**
+     * E.
+     *
+     * @param msg the msg
+     */
     public static void e(String msg) {
         log(ERROR, null, msg);
     }
 
+    /**
+     * E.
+     *
+     * @param tag the tag
+     * @param msg the msg
+     */
     public static void e(String tag, String msg) {
         log(ERROR, tag, msg);
     }
 
+    /**
+     * A.
+     *
+     * @param msg the msg
+     */
     public static void a(String msg) {
         log(ASSERT, null, msg);
     }
 
+    /**
+     * A.
+     *
+     * @param tag the tag
+     * @param msg the msg
+     */
     public static void a(String tag, String msg) {
         log(ASSERT, tag, msg);
     }
 
+    /**
+     * Json.
+     *
+     * @param json the json
+     */
     public static void json(String json) {
         log(JSON, null, json);
     }
 
+    /**
+     * 输出json
+     *
+     * @param tag  the tag
+     * @param json the json
+     */
     public static void json(String tag, String json) {
         log(JSON, tag, json);
     }
 
+    /**
+     * 输出xml
+     *
+     * @param xml the xml
+     */
     public static void xml(String xml) {
         log(XML, null, xml);
     }
 
+    /**
+     * Xml.
+     *
+     * @param tag the tag
+     * @param xml the xml
+     */
     public static void xml(String tag, String xml) {
         log(XML, tag, xml);
     }
@@ -294,34 +418,4 @@ public class L {
             Log.d(tag, "╚═══════════════════════════════════════════════════════════════════════════════════════");
         }
     }
-
-/*    public static void crash2File(Context context, Throwable throwable) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("-------------");
-        builder.append("\nandroidid:" + DeviceUtils.getAndroidID(context));
-        builder.append("\nlanguage:" + DeviceUtils.getLanguage());
-        builder.append("\ncountry:" + DeviceUtils.getCountry(context));
-        builder.append("\nappVersionName:" + SystemUtils.getAppVersionName(context));
-        builder.append("\nappVersionCode:" + SystemUtils.getAppVersionCode(context));
-        builder.append("\nmodel:" + DeviceUtils.getModel());
-        builder.append("\nbuildVersionRelease:" + DeviceUtils.getBuildVersionRelease());
-        builder.append("\nbuildVersionSDK:" + DeviceUtils.getBuildVersionSDK());
-        builder.append("\ncurrentTime:" + DateUtils.getDateTime());
-        File file = new File(context.getExternalCacheDir().getAbsolutePath() + "/log_" + System.currentTimeMillis() + ".log");
-        StringWriter writer = new StringWriter();
-        PrintWriter printWriter = new PrintWriter(writer);
-
-        throwable.printStackTrace(printWriter);
-        OutputStreamWriter osw = null;
-        try {
-            osw = new OutputStreamWriter(new FileOutputStream(file, true), "utf-8");
-            osw.write(builder.toString() + "\n" + writer.toString());
-            writer.flush();
-            osw.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            FileUtils.closeIO(writer, osw);
-        }
-    }*/
 }

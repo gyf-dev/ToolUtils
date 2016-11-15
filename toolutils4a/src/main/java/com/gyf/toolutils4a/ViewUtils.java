@@ -22,10 +22,15 @@ import android.widget.Toast;
 
 
 /**
- * Blog : http://blog.csdn.net/u011240877
+ * The type View utils.
  */
 public class ViewUtils {
 
+    /**
+     * Remove self from parent.
+     *
+     * @param view the view
+     */
     public static void removeSelfFromParent(View view) {
         if (view != null) {
             ViewParent parent = view.getParent();
@@ -37,6 +42,12 @@ public class ViewUtils {
     }
 
 
+    /**
+     * Request layout parent.
+     *
+     * @param view  the view
+     * @param isAll the is all
+     */
     public static void requestLayoutParent(View view, boolean isAll) {
         ViewParent parent = view.getParent();
         while (parent != null && parent instanceof View) {
@@ -51,6 +62,13 @@ public class ViewUtils {
     }
 
 
+    /**
+     * Is touch in view boolean.
+     *
+     * @param ev the ev
+     * @param v  the v
+     * @return the boolean
+     */
     public static boolean isTouchInView(MotionEvent ev, View v) {
         int[] vLoc = new int[2];
         v.getLocationOnScreen(vLoc);
@@ -59,6 +77,13 @@ public class ViewUtils {
         return motionX >= vLoc[0] && motionX <= (vLoc[0] + v.getWidth()) && motionY >= vLoc[1] && motionY <= (vLoc[1] + v.getHeight());
     }
 
+    /**
+     * Big image bitmap.
+     *
+     * @param bmp the bmp
+     * @param big the big
+     * @return the bitmap
+     */
     public static Bitmap bigImage(Bitmap bmp, float big) {
         int bmpWidth = bmp.getWidth();
         int bmpHeight = bmp.getHeight();
@@ -68,14 +93,31 @@ public class ViewUtils {
     }
 
 
+    /**
+     * 给TextView设置下划线
+     *
+     * @param textView the text view
+     */
     public static void setTVUnderLine(TextView textView) {
         textView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         textView.getPaint().setAntiAlias(true);
     }
 
 
+    /**
+     * The Popup window.
+     */
     static PopupWindow popupWindow;
 
+    /**
+     * Show popup window view.
+     *
+     * @param context    the context
+     * @param resId      the res id
+     * @param root       the root
+     * @param paramsType the params type
+     * @return the view
+     */
     public static View showPopupWindow(Context context, int resId, View root, int paramsType) {
         View popupView;
         popupView = LayoutInflater.from(context).inflate(resId, null);
@@ -111,6 +153,9 @@ public class ViewUtils {
     }
 
 
+    /**
+     * Dismiss popup.
+     */
     public static void dismissPopup() {
         if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
@@ -118,6 +163,12 @@ public class ViewUtils {
         }
     }
 
+    /**
+     * 截图
+     *
+     * @param v the v
+     * @return the bitmap
+     */
     public static Bitmap captureView(View v) {
         v.setDrawingCacheEnabled(true);
         v.buildDrawingCache();
@@ -125,6 +176,12 @@ public class ViewUtils {
     }
 
 
+    /**
+     * 截图
+     *
+     * @param v the v
+     * @return the bitmap
+     */
     public static Bitmap createViewBitmap(View v) {
         Bitmap bitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -133,6 +190,12 @@ public class ViewUtils {
     }
 
 
+    /**
+     * 截图
+     *
+     * @param view the view
+     * @return the bitmap
+     */
     public static Bitmap convertViewToBitmap(View view) {
         view.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
         view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
@@ -141,6 +204,12 @@ public class ViewUtils {
     }
 
 
+    /**
+     * 获取Activity的截图
+     *
+     * @param activity the activity
+     * @return the activity bitmap
+     */
     public static Bitmap getActivityBitmap(Activity activity) {
         View view = activity.getWindow().getDecorView().findViewById(android.R.id.content);
         view.setDrawingCacheEnabled(true);
@@ -148,6 +217,12 @@ public class ViewUtils {
     }
 
 
+    /**
+     * 获取状态栏高度
+     *
+     * @param context the context
+     * @return the status bar height
+     */
     public static int getStatusBarHeight(Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -158,6 +233,12 @@ public class ViewUtils {
     }
 
 
+    /**
+     * 获取工具栏高度
+     *
+     * @param context the context
+     * @return the toolbar height
+     */
     public static int getToolbarHeight(Context context) {
         final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(new int[]{R.attr.actionBarSize});
         int toolbarHeight = (int) styledAttributes.getDimension(0, 0);
@@ -165,6 +246,12 @@ public class ViewUtils {
         return toolbarHeight;
     }
 
+    /**
+     * 获取导航栏高度
+     *
+     * @param activity the activity
+     * @return the navigation bar height
+     */
     public static int getNavigationBarHeight(Activity activity) {
         Resources resources = activity.getResources();
         int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
@@ -174,6 +261,11 @@ public class ViewUtils {
         return 0;
     }
 
+    /**
+     * 测量view
+     *
+     * @param view the view
+     */
     public static void measureView(View view) {
         ViewGroup.LayoutParams p = view.getLayoutParams();
         if (p == null) {
@@ -191,16 +283,34 @@ public class ViewUtils {
         view.measure(childWidthSpec, childHeightSpec);
     }
 
+    /**
+     * 获取view的宽度
+     *
+     * @param view the view
+     * @return the view width
+     */
     public static int getViewWidth(View view) {
         measureView(view);
         return view.getMeasuredWidth();
     }
 
+    /**
+     * 获取view的高度
+     *
+     * @param view the view
+     * @return the view height
+     */
     public static int getViewHeight(View view) {
         measureView(view);
         return view.getMeasuredHeight();
     }
 
+    /**
+     * 获取view的上下文
+     *
+     * @param view the view
+     * @return the activity
+     */
     public static Activity getActivity(View view) {
         Context context = view.getContext();
         while (context instanceof ContextWrapper) {
